@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './Contact.css';
+import '../styled/Contact.css';
 
 function Contact() {
   const [enquiries, setEnquiries] = useState([]);
