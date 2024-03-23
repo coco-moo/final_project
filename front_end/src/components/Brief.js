@@ -1,4 +1,4 @@
-import './Admin.css';
+import '../styled/Admin.css';
 
 function Brief() {
   return(
