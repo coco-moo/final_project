@@ -1,5 +1,5 @@
 import logo from './logo.png';
-import './Admin.css';
+import '../styled/Admin.css';
 
 
 function Admin() {
