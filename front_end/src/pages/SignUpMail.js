@@ -48,7 +48,7 @@ const SignUpMail = () => {
   };
 
   const handleNicknameCheck = async () => {
-    // 아이디 중복 여부 확인
+    // 닉네임 중복 여부 확인
     const isNicknameDuplicate = await checkNicknameDuplicate(userData.nickname);
     // 중복 여부 상태 업데이트
     setIsNicknameDuplicate(isNicknameDuplicate);
@@ -138,9 +138,11 @@ const SignUpMail = () => {
                 onClick={(e) => {
                   e.preventDefault();
                   handleChange(e);
-                  handleGenderButtonClick('M');
+                  handleGenderButtonClick("M");
                 }}
-                style={{ backgroundColor: selectedGender === 'M' ? 'lightgray' : '' }}
+                style={{
+                  backgroundColor: selectedGender === "M" ? "lightgray" : "",
+                }}
               >
                 남자
               </button>
@@ -150,9 +152,11 @@ const SignUpMail = () => {
                 onClick={(e) => {
                   e.preventDefault();
                   handleChange(e);
-                  handleGenderButtonClick('F');
+                  handleGenderButtonClick("F");
                 }}
-                style={{ backgroundColor: selectedGender === 'F' ? 'lightgray' : '' }}
+                style={{
+                  backgroundColor: selectedGender === "F" ? "lightgray" : "",
+                }}
               >
                 여자
               </button>

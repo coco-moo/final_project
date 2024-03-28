@@ -1,4 +1,4 @@
-USE bookDB;
+CREATE DATABASE bookDB;
 
 CREATE TABLE `customers` (
     `custKey` INT AUTO_INCREMENT PRIMARY KEY,

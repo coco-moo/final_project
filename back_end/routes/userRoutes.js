@@ -14,5 +14,6 @@ router.post("/checkEmailDuplicate", businessLogic.checkEmailDuplicate); // 이�
 router.post("/checkUserIdDuplicate", businessLogic.checkUserIdDuplicate); // 아이디 중복확인
 router.post("/checkNicknameDuplicate", businessLogic.checkNicknameDuplicate); // 닉네임 중복확인
 router.get("/logout", businessLogic.logout); // 로그아웃 부분
+router.get("/checkSession", businessLogic.checkSession); // 세션체크 부분
 
 module.exports = router;

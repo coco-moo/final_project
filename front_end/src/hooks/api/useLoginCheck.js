@@ -17,7 +17,6 @@ const useLoginCheck = () => {
       });
       const data = await res.json();
 
-      alert(data);
       console.log(data);
       if (res.status === 200) {
         navigate("/");

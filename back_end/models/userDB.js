@@ -43,7 +43,7 @@ exports.getUser = (userid) => {
   });
 };
 
-// 특정 이메일을 가진 사용자를 가져오는 함수
+// 특정 닉네임을 가진 사용자를 가져오는 함수
 exports.getNickname = (nickname) => {
   return new Promise((resolve, reject) => {
     db.query(
@@ -110,7 +110,8 @@ exports.checkUserIdDuplicate = async (req, res) => {
     res.status(500).json(err);
   }
 };
-// 사용자 nickname 중복을 확인하는 함수
+
+// // 사용자 nickname 중복을 확인하는 함수
 exports.checkNicknameDuplicate = async (req, res) => {
   const { nickname } = req.body;
   try {
@@ -165,12 +166,26 @@ exports.loginCheck = async (req, res) => {
     }
 
     // 로그인 성공 시 세션에 사용자 정보 저장
-    req.session.userid = userid;
+    // req.session.userid = userid;
     req.session.user = getUser[0]; // 필요한 경우 사용자 정보의 일부만 저장 가능
-    res.status(200).json("로그인 성공");
+    res.status(200).json({
+      message: "로그인 성공",
+      user: req.session.user.custKey, // 세션에 저장된 사용자 정보를 응답으로 반환
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json(err);
+  }
+};
+
+exports.checkSession = (req, res) => {
+  const userID = req.session.user.custKey;
+  // const userID = req.session.user.custKey;
+  console.log(userID);
+  if (userID) {
+    res.send({ loggedIn: true, loginUser: userID });
+  } else {
+    res.send({ loggedIn: false });
   }
 };
 
@@ -182,9 +197,9 @@ exports.logout = (req, res) => {
       res.status(500).json("로그아웃 실패");
       return;
     } else {
-      res.clearCookie("connect.sid"); // 세션 쿠키 삭제 (이름)
-      // res.session.user_id.cookie.maxAge = 0;
-      res.status(200).json("로그아웃 성공");
+      res.status(200).json({
+        message: "로그아웃 성공",
+      });
     }
   });
 };

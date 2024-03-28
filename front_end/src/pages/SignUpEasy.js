@@ -15,6 +15,7 @@ const SignUpEasy = () => {
     setIsNicknameDuplicate,
     checkNicknameDuplicate,
   } = useNicknameCheck();
+
   // 프로필 값 받기
   const location = useLocation();
   const { profile } = location.state;
