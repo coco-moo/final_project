@@ -1,12 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import "../styled/Header.css";
 import { FaSearch } from "react-icons/fa";
+import useLogOut from "../hooks/api/useLogOut";
+import styled from "styled-components";
+
+
+const LogoutContainer = styled.div`
+  cursor: pointer;
+`
 
 const Header = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate(); // useNavigate 훅
   const location = useLocation();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { logout } = useLogOut(); // 로그아웃 훅 사용
+
+  useEffect(() => {
+    // 로그인 상태 확인
+    const isLoggedIn = checkLoginStatus();
+    setIsLoggedIn(isLoggedIn); // false / true
+  });
+
+  function checkLoginStatus() {
+    // 쿠키 확인
+    const cookieName = `connect.sid`;
+    const cookieExists = document.cookie.includes(cookieName);
+
+    // 세션 스토리지 확인
+    const userId = sessionStorage.getItem('id');
+
+    // 쿠키나 세션 스토리지 중 하나라도 존재하면 로그인 상태로 판단
+    return cookieExists || userId !== null;
+  }
 
 
   const handleItemClick = (event) => {
@@ -21,20 +48,21 @@ const Header = () => {
 
   const handleSearchSubmit = () => {
     if (searchTerm.trim() !== "") {
-      /* ${window.location.origin} */
-      if (location.pathname === "/") { // 메인 페이지인 경우
+      if (location.pathname === "/") {
         navigate(`/search?q=${encodeURIComponent(searchTerm)}`);
-      } else { // 다른 페이지인 경우
+      } else {
         navigate(`${location.pathname}/search?q=${encodeURIComponent(searchTerm)}`);
       }
     }
   };
 
   const handleEnterKeyDown = (event) => {
-    if (event.key === "Enter") { // 엔터 키를 눌렀을 때
-      handleSearchSubmit(); // 검색 실행
+    if (event.key === "Enter") {
+      handleSearchSubmit();
     }
   }
+
+
   return (
     <div>
       <div className="sbk-header-wrapper">
@@ -61,27 +89,26 @@ const Header = () => {
               </NavLink>
             </dt>
             <dt>
-              <NavLink
-                to="/SNSLogin"
-                className="sbk-menu-item"
-                activeClassName="active"
-                onClick={handleItemClick}
-              >
-                로그인/회원가입
-              </NavLink>
+              {isLoggedIn ? (
+                <LogoutContainer onClick={logout} >
+                  <span>로그아웃</span>
+                </LogoutContainer>
+              ) : (
+                <NavLink
+                  to="/SNSlogin"
+                  className="sbk-menu-item"
+                  activeClassName="active"
+                  onClick={handleItemClick}
+                >
+                  로그인/회원가입
+                </NavLink>
+              )}
             </dt>
           </dl>
         </div>
 
         <div className="sbk-menu-container">
           <div className="sbk-logo-wrapper">
-            {/*             <a href="/" className="sbk-logo-link">
-              <img
-                className="sbk-logo-image"
-                alt="로고이미지"
-                src="img/logo.png"
-              />
-            </a> */}
             <NavLink to="/" className="sbk-logo-link">
               <img
                 className="sbk-logo-image"
