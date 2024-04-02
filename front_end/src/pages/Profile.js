@@ -77,13 +77,13 @@ const Profile = () => {
                     <h4>배송지</h4>
                     <li>
                       <p>배송지11111sadfasdfasdfasdfads</p>
-                      <div className="lcm_purHistBtns">
-                        <button>+ 새 배송지 추가</button>
+                      <Link to="/Address" className="lcm_purHistBtns">
+                        <button>새 배송지 추가</button>
                         <span>
                           <button>수정</button>
                           <button>삭제</button>
                         </span>
-                      </div>
+                      </Link>
                     </li>
                   </ul>
                 </div>
